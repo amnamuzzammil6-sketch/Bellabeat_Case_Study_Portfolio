@@ -1,0 +1,38 @@
+---
+title: "Bellabeat Data Analysis Case Study"
+author: "Amna Muzzammil"
+date: "2026-01-15"
+output: html_document
+---
+
+## 1. Summary
+This analysis explores smart device usage data to identify trends that can inform Bellabeat's marketing strategy.
+
+## 2. Setting Up the Environment
+```{r setup}
+# Loading packages
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+
+
+# Load the daily activity dataset
+daily_activity <- read_csv("dailyActivity_merged.csv")
+
+# Preview the data
+head(daily_activity)
+
+# Remove rows where TotalSteps is 0
+daily_activity_clean <- daily_activity %>%
+  filter(TotalSteps > 0)
+
+# Check the new number of rows
+nrow(daily_activity_clean)
+
+ggplot(data=daily_activity_clean, aes(x=TotalSteps, y=Calories)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) +
+  labs(title="Correlation between Daily Steps and Calories",
+       x="Total Steps",
+       y="Calories Burned")
+```
